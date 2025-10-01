@@ -1,4 +1,4 @@
-name: Example Workflow
+name: CI with Cache and Email Step
 
 on:
   push:
@@ -7,11 +7,27 @@ on:
   pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/my-dependencies
+          key: cache-7ce1c02
+
+      - name: prime-cache-7ce1c02
+        run: echo "Cache result: ${{ steps.cache-deps.outputs.cache-hit }}"
 
       - name: 23f3001608@ds.study.iitm.ac.in
         run: echo "Hello, world!"
+
+      - name: Simulate dependency install
+        run: |
+          mkdir -p ~/.cache/my-dependencies
+          echo "fake-dependency-data" > ~/.cache/my-dependencies/dependency.txt

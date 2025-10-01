@@ -5,6 +5,7 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,9 +23,9 @@ jobs:
           key: cache-7ce1c02
 
       - name: prime-cache-7ce1c02
-        run: echo "Cache result: ${{ steps.cache-deps.outputs.cache-hit }}"
+        run: 'echo "Cache result: ${{ steps.cache-deps.outputs.cache-hit }}"'
 
-      - name: 23f3001608@ds.study.iitm.ac.in
+      - name: "23f3001608@ds.study.iitm.ac.in"
         run: echo "Hello, world!"
 
       - name: Simulate dependency install
